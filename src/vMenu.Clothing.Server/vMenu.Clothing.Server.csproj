@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Configurations>Debug;Release</Configurations>
+    <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+    <DebugType>none</DebugType>
+    <OutputPath>..\..\build\vMenu.Clothing\server</OutputPath>
+  </PropertyGroup>
+  <Target Name="RemoveHostAssemblies" AfterTargets="ResolveReferences">
+    <ItemGroup>
+    </ItemGroup>
+  </Target>
+  <ItemGroup>
+    <None Include="..\Dependencies\clothes.json" CopyToOutputDirectory="PreserveNewest">
+      <Link>..\clothes.json</Link>
+    </None>
+    <None Include="..\Dependencies\fxmanifest.lua" CopyToOutputDirectory="PreserveNewest">
+      <Link>..\fxmanifest.lua</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CitizenFX.FiveM.Server" Version="0.0.4-alpha" />
+    <PackageReference Include="vMenu.Enhanced.ServerAPI" Version="1.0.6-dev.20" />
+  </ItemGroup>
+</Project>
