@@ -1,5 +1,5 @@
 fx_version 'cerulean'
-games { 'gta5enhanced' }
+games { 'gta5' }
 
 name 'vMenu.Clothing'
 description 'vMenu plugin that adds a thermal based clothing system'
