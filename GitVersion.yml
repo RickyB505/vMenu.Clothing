@@ -1,0 +1,6 @@
+workflow: GitHubFlow/v1
+mode: ContinuousDeployment
+branches:
+  main:
+    label: ''
+    increment: Patch

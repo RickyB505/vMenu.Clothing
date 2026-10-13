@@ -1,4 +1,2 @@
-/.vs
+/node_modules
 /build
-/src/vMenu.Clothing.Client/obj
-/src/vMenu.Clothing.Server/obj

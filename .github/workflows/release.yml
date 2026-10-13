@@ -1,0 +1,61 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Build and release
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v4.7.0
+        with:
+          versionSpec: '6.8.x'
+
+      - name: Work out the version
+        id: version
+        uses: gittools/actions/gitversion/execute@v4.7.0
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Zip the resource
+        env:
+          VERSION: ${{ steps.version.outputs.majorMinorPatch }}
+        run: |
+          sed -i "s/versiongoeshere/$VERSION/" build/vMenu.Clothing/fxmanifest.lua
+          (cd build && zip -q -r -X ../vMenu.Clothing.zip vMenu.Clothing)
+
+      - name: Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: v${{ steps.version.outputs.majorMinorPatch }}
+        run: gh release create "$TAG" vMenu.Clothing.zip --target "$GITHUB_SHA" --title "vMenu.Clothing $TAG" --generate-notes

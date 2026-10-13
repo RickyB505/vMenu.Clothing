@@ -1,0 +1,19 @@
+{
+  "name": "vmenu-clothing",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "tsc --noEmit -p src/client && tsc --noEmit -p src/server",
+    "build": "npm run check && node build.mjs"
+  },
+  "dependencies": {
+    "@vespura/vmenu-plugin": "1.0.9"
+  },
+  "devDependencies": {
+    "@citizenfx/client": "2.0.37287-1",
+    "@citizenfx/server": "2.0.37287-1",
+    "esbuild": "0.28.2",
+    "typescript": "7.0.2"
+  }
+}
